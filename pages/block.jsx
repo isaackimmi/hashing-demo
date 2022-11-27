@@ -1,21 +1,8 @@
-import {
-  Flex,
-  VStack,
-  Text,
-  Textarea,
-  HStack,
-  Input,
-  Badge,
-} from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import BlockCard from "../components/BlockCard";
 
 const Block = () => {
-  //  const [value, setValue] = useState("");
-
-  //  const handleHashInputValue = (e) => {
-  //    setValue(e.target.value);
-  //  };
   return (
     <Flex
       justifyContent={"center"}

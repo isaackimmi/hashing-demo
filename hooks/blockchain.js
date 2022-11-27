@@ -39,71 +39,71 @@ function addBlock() {
     blockchain[newIndex][3]
   );
   blockchain[newIndex][4] = sha256(totalData);
-  reprintAllBlocks();
+  //reprintAllBlocks();
 }
 
-function reprintAllBlocks() {
-  updateAllPreviousHash();
-  document.getElementById("cardWrapper").innerHTML = "";
-  for (block in blockchain) {
-    var blockId =
-      "Block Id: <input id='blockchainIdInput" +
-      blockchain[block][0] +
-      "' value='" +
-      blockchain[block][0] +
-      "' onchange='updateBlockId(" +
-      blockchain[block][0] +
-      ")'></input>";
-    var nonce =
-      "Nonce: <input id='blockchainNonceInput" +
-      blockchain[block][0] +
-      "' onchange='updateBlockNonce(" +
-      blockchain[block][0] +
-      ")' value='" +
-      blockchain[block][1] +
-      "'></input>";
-    var data =
-      "Data: <input id='blockchainDataInput" +
-      blockchain[block][0] +
-      "' onchange='updateBlockData(" +
-      blockchain[block][0] +
-      ")' value='" +
-      blockchain[block][2] +
-      "'></input>";
-    var prevHash =
-      "<div>Previous Hash: <input id='blockchainPrevHashInput" +
-      blockchain[block][0] +
-      "' class='previousHashInput' value='" +
-      blockchain[block][3] +
-      "' onchange='updateBlockPrevHash(" +
-      blockchain[block][0] +
-      ")'></input></div>";
-    var inputs = "<div>" + blockId + nonce + data + prevHash + "</div>";
-    var hash =
-      "<div>Hash: <div id='blockchainHashOutput" +
-      blockchain[block][0] +
-      "'>" +
-      blockchain[block][4] +
-      "</div></div>";
-    var searchButton =
-      "<button onclick='searchForNonce(" +
-      blockchain[block][0] +
-      ")' class='searchBtn'>Search For Nonce</button>";
+//function reprintAllBlocks() {
+//  updateAllPreviousHash();
+//  document.getElementById("cardWrapper").innerHTML = "";
+//  for (block in blockchain) {
+//    var blockId =
+//      "Block Id: <input id='blockchainIdInput" +
+//      blockchain[block][0] +
+//      "' value='" +
+//      blockchain[block][0] +
+//      "' onchange='updateBlockId(" +
+//      blockchain[block][0] +
+//      ")'></input>";
+//    var nonce =
+//      "Nonce: <input id='blockchainNonceInput" +
+//      blockchain[block][0] +
+//      "' onchange='updateBlockNonce(" +
+//      blockchain[block][0] +
+//      ")' value='" +
+//      blockchain[block][1] +
+//      "'></input>";
+//    var data =
+//      "Data: <input id='blockchainDataInput" +
+//      blockchain[block][0] +
+//      "' onchange='updateBlockData(" +
+//      blockchain[block][0] +
+//      ")' value='" +
+//      blockchain[block][2] +
+//      "'></input>";
+//    var prevHash =
+//      "<div>Previous Hash: <input id='blockchainPrevHashInput" +
+//      blockchain[block][0] +
+//      "' class='previousHashInput' value='" +
+//      blockchain[block][3] +
+//      "' onchange='updateBlockPrevHash(" +
+//      blockchain[block][0] +
+//      ")'></input></div>";
+//    var inputs = "<div>" + blockId + nonce + data + prevHash + "</div>";
+//    var hash =
+//      "<div>Hash: <div id='blockchainHashOutput" +
+//      blockchain[block][0] +
+//      "'>" +
+//      blockchain[block][4] +
+//      "</div></div>";
+//    var searchButton =
+//      "<button onclick='searchForNonce(" +
+//      blockchain[block][0] +
+//      ")' class='searchBtn'>Search For Nonce</button>";
 
-    document.getElementById("cardWrapper").innerHTML +=
-      "<div id='card" +
-      blockchain[block][0] +
-      "' class='" +
-      (blockchain[block][4].substring(0, mostSignificantCount) === hexString
-        ? "card verified"
-        : "card notVerified") +
-      "'>" +
-      inputs +
-      hash +
-      searchButton +
-      "</div>";
-  }
-}
+//    document.getElementById("cardWrapper").innerHTML +=
+//      "<div id='card" +
+//      blockchain[block][0] +
+//      "' class='" +
+//      (blockchain[block][4].substring(0, mostSignificantCount) === hexString
+//        ? "card verified"
+//        : "card notVerified") +
+//      "'>" +
+//      inputs +
+//      hash +
+//      searchButton +
+//      "</div>";
+//  }
+//}
 
 function updateAllPreviousHash() {
   for (block in blockchain) {
@@ -370,3 +370,32 @@ function sha256(ascii) {
   }
   return result;
 }
+
+// JOSH CODE
+
+//import cryptoJs from 'crypto-js';
+
+//// Input Box 1
+//let block = 12345;
+
+//// Input Box 3
+//let msg = "genius josh, thank you...";
+
+//// stuff used to find block
+//let found = false;
+//let nonce = 0;
+//let hash;
+//let leadingChars;
+//let difficulty = 2;
+//while (!found) {
+//  nonce += 1;
+//  hash = cryptoJs.SHA256(nonce + block + msg).toString();
+//  leadingChars = hash.slice(0, difficulty);
+//  found = (leadingChars === "00") // make this "000" if difficulty = 3
+//    ? true // exits loop
+//    : false;
+//}
+
+//console.log("MINED BLOCK!!!");
+//console.log("HASH", hash);
+//console.log("NONCE", nonce);
