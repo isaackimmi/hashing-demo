@@ -3,6 +3,10 @@ import { useState } from "react";
 import BlockCard from "../components/BlockCard";
 
 const Block = () => {
+  const [value, setValue] = useState("");
+  const [blockInput, setBlockInput] = useState("");
+  const [nonceInput, setNonceInput] = useState("");
+
   return (
     <Flex
       justifyContent={"center"}
@@ -11,7 +15,17 @@ const Block = () => {
       height={"60vh"}
       px={60}
     >
-      <BlockCard title={"Block Demo"} size={"65%"} />
+      <BlockCard
+        title={"Block Demo"}
+        size={"65%"}
+        hash={value}
+        setHash={setValue}
+        blockID={blockInput}
+        setBlock={setBlockInput}
+        nonce={nonceInput}
+        setNonce={setNonceInput}
+        isBlock={false}
+      />
     </Flex>
   );
 };

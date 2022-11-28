@@ -1,12 +1,37 @@
-import { VStack, Text, Badge, HStack, Input, Textarea } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  VStack,
+  Text,
+  Button,
+  HStack,
+  Input,
+  Textarea,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import mineBlock from "../../hooks/mineBlock";
+import useBlock from "../../hooks/mineBlock";
+import mineBlockchain from "../../hooks/mineBlockchain";
+import useBlockchain from "../../hooks/mineBlockchain";
 
-const BlockCard = ({ title, blockID, nonce, width, height }) => {
-  const [value, setValue] = useState("");
-
-  const handleHashInputValue = (e) => {
-    setValue(e.target.value);
+const BlockCard = ({
+  title,
+  hash,
+  setHash,
+  blockID,
+  setBlock,
+  nonce,
+  setNonce,
+  width,
+  height,
+  isBlock,
+}) => {
+  const handleMineBlock = () => {
+    setHash(mineBlock(blockID, hash));
   };
+
+  const handleMineBlockchain = () => {
+    setHash(mineBlock(blockID, hash));
+  };
+
   return (
     <VStack
       alignItems={"flex-start"}
@@ -27,11 +52,19 @@ const BlockCard = ({ title, blockID, nonce, width, height }) => {
       </Text>
       <HStack spacing={4}>
         <Text fontSize={32} fontWeight={600}>
-          Block ID
+          Block
         </Text>
-        <Badge px={4} borderRadius={20} fontSize={32}>
-          1
-        </Badge>
+        <Input
+          py={6}
+          fontSize={26}
+          border={"6px solid black"}
+          borderRadius={40}
+          w={"100%"}
+          borderColor={"black"}
+          onChange={(e) => {
+            setBlock(e.target.value);
+          }}
+        />
       </HStack>
       <HStack
         w={"100%"}
@@ -48,15 +81,21 @@ const BlockCard = ({ title, blockID, nonce, width, height }) => {
           border={"6px solid black"}
           borderRadius={40}
           w={"100%"}
-        ></Input>
+          borderColor={"black"}
+          onChange={(e) => {
+            setNonce(e.target.value);
+          }}
+        />
       </HStack>
       <Textarea
         py={4}
         height={"100%"}
         border={"6px solid black"}
         borderRadius={20}
-        onChange={handleHashInputValue}
-        placeholder="Enter data"
+        onChange={(e) => {
+          setHash(e.target.value);
+        }}
+        placeholder="Enter message"
         size={"lg"}
         fontSize={26}
         resize={"none"}
@@ -66,9 +105,16 @@ const BlockCard = ({ title, blockID, nonce, width, height }) => {
           Hash Value:{" "}
         </Text>
         <Text fontSize={32} fontWeight={500}>
-          {value}
+          {hash}
         </Text>
       </HStack>
+      <Button
+        onClick={isBlock ? handleMineBlock : handleMineBlockchain}
+        borderRadius={30}
+        size={"lg"}
+      >
+        Mine!
+      </Button>
     </VStack>
   );
 };

@@ -1,3 +1,37 @@
+import cryptoJs from "crypto-js";
+
+export default function mineBlockchain(block, message, blockchain) {
+  if (block === "" || message === "") {
+    return null;
+  }
+  // Input Box 3
+  //let msg = "genius josh, thank you...";
+
+  // stuff used to find block
+  let found = false;
+  let nonce = 0;
+  let hash;
+  let leadingChars;
+  let difficulty = 2;
+  while (!found) {
+    nonce += 1;
+    hash = cryptoJs.SHA256(nonce + block + message).toString();
+    leadingChars = hash.slice(0, difficulty);
+    found =
+      leadingChars === "00" // make this "000" if difficulty = 3
+        ? true // exits loop
+        : false;
+  }
+
+  console.log("MINED BLOCK!!!");
+  console.log("HASH", hash);
+  console.log("NONCE", nonce);
+
+  return hash;
+}
+
+// Input Box 1
+
 //Project inspired by: Anders Brownworth
 //His Videos: https://youtu.be/_160oMzblY8 https://youtu.be/xIDL_akeras
 //His Website: http://anders.com/blockchain/
@@ -370,32 +404,3 @@ function sha256(ascii) {
   }
   return result;
 }
-
-// JOSH CODE
-
-//import cryptoJs from 'crypto-js';
-
-//// Input Box 1
-//let block = 12345;
-
-//// Input Box 3
-//let msg = "genius josh, thank you...";
-
-//// stuff used to find block
-//let found = false;
-//let nonce = 0;
-//let hash;
-//let leadingChars;
-//let difficulty = 2;
-//while (!found) {
-//  nonce += 1;
-//  hash = cryptoJs.SHA256(nonce + block + msg).toString();
-//  leadingChars = hash.slice(0, difficulty);
-//  found = (leadingChars === "00") // make this "000" if difficulty = 3
-//    ? true // exits loop
-//    : false;
-//}
-
-//console.log("MINED BLOCK!!!");
-//console.log("HASH", hash);
-//console.log("NONCE", nonce);
