@@ -12,12 +12,13 @@ const Block = () => {
       justifyContent={"center"}
       alignItems={"center"}
       w={"100%"}
-      height={"60vh"}
+      height={"100vh"}
       px={60}
+      mb={20}
     >
       <BlockCard
         title={"Block Demo"}
-        size={"65%"}
+        //size={"65%"}
         hash={value}
         setHash={setValue}
         blockID={blockInput}

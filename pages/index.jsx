@@ -14,6 +14,7 @@ const Hash = () => {
       alignItems={"center"}
       w={"100%"}
       height={"60vh"}
+      mt={28}
       //  border={"1px solid black"}
       px={60}
     >

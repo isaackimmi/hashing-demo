@@ -12,7 +12,57 @@ const BlockChain = () => {
     <BlockCard
       key={blockInput}
       title={"Blockchain Demo"}
-      size={"65%"}
+      width={"fit-content"}
+      //size={"65%"}
+      hash={value}
+      setHash={setValue}
+      blockID={blockInput}
+      setBlock={setBlockInput}
+      nonce={nonceInput}
+      setNonce={setNonceInput}
+      isBlock={false}
+    />,
+    ,
+    <BlockCard
+      key={blockInput}
+      title={"Blockchain Demo"}
+      //size={"65%"}
+      hash={value}
+      setHash={setValue}
+      blockID={blockInput}
+      setBlock={setBlockInput}
+      nonce={nonceInput}
+      setNonce={setNonceInput}
+      isBlock={false}
+    />,
+    <BlockCard
+      key={blockInput}
+      title={"Blockchain Demo"}
+      //size={"65%"}
+      hash={value}
+      setHash={setValue}
+      blockID={blockInput}
+      setBlock={setBlockInput}
+      nonce={nonceInput}
+      setNonce={setNonceInput}
+      isBlock={false}
+    />,
+    <BlockCard
+      key={blockInput}
+      title={"Blockchain Demo"}
+      //size={"65%"}
+      hash={value}
+      setHash={setValue}
+      blockID={blockInput}
+      setBlock={setBlockInput}
+      nonce={nonceInput}
+      setNonce={setNonceInput}
+      isBlock={false}
+    />,
+    <BlockCard
+      key={blockInput}
+      title={"Blockchain Demo"}
+      //size={"65%"}
       hash={value}
       setHash={setValue}
       blockID={blockInput}
@@ -28,7 +78,7 @@ const BlockChain = () => {
       <BlockCard
         key={blockInput}
         title={"Blockchain Demo"}
-        size={"65%"}
+        //size={"65%"}
         hash={value}
         setHash={setValue}
         blockID={blockInput}
@@ -41,13 +91,19 @@ const BlockChain = () => {
   };
 
   return (
-    <VStack w={"100%"} height={"75vh"}>
+    <VStack
+      w={"100vw"}
+      height={"100vh"}
+      mb={20}
+      justifyContent={"center"}
+      alignItems={"center"}
+    >
       <HStack
         justifyContent={"flex-start"}
         spacing={16}
         alignItems={"center"}
         w={"100%"}
-        min-height={"fit-content"}
+        //min-height={"fit-content"}
         px={60}
         overflowX={"scroll"}
       >
