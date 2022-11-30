@@ -1,11 +1,12 @@
 import { Flex, VStack, Text, Textarea, HStack } from "@chakra-ui/react";
+import cryptoJs from "crypto-js";
 import { useState } from "react";
 
 const Hash = () => {
   const [value, setValue] = useState("");
 
   const handleHashInputValue = (e) => {
-    setValue(e.target.value);
+    setValue(cryptoJs.SHA256(e.target.value).toString());
   };
 
   return (
@@ -45,14 +46,19 @@ const Hash = () => {
           fontSize={26}
           resize={"none"}
         />
-        <HStack spacing={4} alignItems={"center"} justifyContent={"center"}>
+        <VStack
+          w={"100%"}
+          spacing={4}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
           <Text w={"100%"} fontSize={32} fontWeight={600}>
             Hash Value:{" "}
           </Text>
           <Text fontSize={32} fontWeight={500}>
             {value}
           </Text>
-        </HStack>
+        </VStack>
       </VStack>
     </Flex>
   );

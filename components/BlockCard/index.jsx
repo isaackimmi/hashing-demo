@@ -5,41 +5,71 @@ import {
   HStack,
   Input,
   Textarea,
+  Badge,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import mineBlock from "../../hooks/mineBlock";
-import useBlock from "../../hooks/mineBlock";
-import mineBlockchain from "../../hooks/mineBlockchain";
-import useBlockchain from "../../hooks/mineBlockchain";
+import checkHash from "../../hooks/checkHash";
 
 const BlockCard = ({
   title,
-  hash,
-  setHash,
-  blockID,
+  success,
+  setSuccess,
+  block,
   setBlock,
-  nonce,
-  setNonce,
   width,
-  height,
-  isBlock,
+  blockchain,
+  currIndex,
 }) => {
-  const handleMineBlock = () => {
-    setHash(mineBlock(blockID, hash));
+  const handleSuccess = (res, i) => {
+    let copySuccess = [...success];
+    copySuccess.splice(i, 1, res);
+    setSuccess(copySuccess);
   };
 
-  const handleMineBlockchain = () => {
-    setHash(mineBlock(blockID, hash));
+  const handleMineBlock = () => {
+    const obj = mineBlock(
+      block.nonce,
+      block.id,
+      block.message,
+      block.previousHash
+    );
+
+    setBlock({
+      ...block,
+      hash: obj.hash,
+      nonce: obj.nonce,
+      previousHash: obj.previousHash,
+    });
+
+    blockchain?.forEach((block, index) => {
+      const res = checkHash(
+        block.nonce,
+        block.id,
+        block.message,
+        block.previousHash,
+        block.hash
+      );
+
+      console.log(res);
+
+      handleSuccess(res, index);
+    });
   };
+
+  useEffect(() => {
+    console.log(success);
+  }, [blockchain]);
 
   return (
     <VStack
       alignItems={"flex-start"}
       justifyContent={"center"}
       w={width}
-      //h={height ? height : null}
-      height={"90%"}
+      min-height={0}
+      //max-height={"80%"}
       border={"6px solid black"}
+      borderColor={success[currIndex] ? "green" : "red"}
       borderRadius={100}
       spacing={10}
       py={24}
@@ -51,11 +81,14 @@ const BlockCard = ({
       <Text mb={10} as={"h1"} fontSize={60} fontWeight={700}>
         {title}
       </Text>
+
       <HStack spacing={4}>
         <Text fontSize={32} fontWeight={600}>
-          Block
+          Block ID
         </Text>
         <Input
+          name="id"
+          value={block.id}
           py={6}
           fontSize={26}
           border={"6px solid black"}
@@ -63,7 +96,7 @@ const BlockCard = ({
           w={"100%"}
           borderColor={"black"}
           onChange={(e) => {
-            setBlock(e.target.value);
+            setBlock({ ...block, id: e.target.value });
           }}
         />
       </HStack>
@@ -78,39 +111,57 @@ const BlockCard = ({
         </Text>
         <Input
           py={6}
+          name="nonce"
+          value={block.nonce}
           fontSize={26}
           border={"6px solid black"}
           borderRadius={40}
           w={"100%"}
           borderColor={"black"}
           onChange={(e) => {
-            setNonce(e.target.value);
+            setBlock({ ...block, nonce: e.target.value });
           }}
         />
       </HStack>
       <Textarea
+        name="message"
+        value={block.message}
         py={4}
         height={"100%"}
         border={"6px solid black"}
+        borderColor={"black"}
         borderRadius={20}
         onChange={(e) => {
-          setHash(e.target.value);
+          setBlock({ ...block, message: e.target.value });
         }}
         placeholder="Enter message"
         size={"lg"}
         fontSize={26}
         resize={"none"}
       />
-      <HStack spacing={4} alignItems={"center"} justifyContent={"center"}>
+      <VStack
+        spacing={2}
+        alignItems={"center"}
+        justifyContent={"center"}
+        w={"100%"}
+      >
+        <Text w={"100%"} fontSize={32} fontWeight={600}>
+          Previous Hash:{" "}
+        </Text>
+        <Text fontSize={32} fontWeight={500}>
+          {block.previousHash}
+        </Text>
         <Text w={"100%"} fontSize={32} fontWeight={600}>
           Hash Value:{" "}
         </Text>
         <Text fontSize={32} fontWeight={500}>
-          {hash}
+          {block.hash}
         </Text>
-      </HStack>
+      </VStack>
       <Button
-        onClick={isBlock ? handleMineBlock : handleMineBlockchain}
+        py={6}
+        px={10}
+        onClick={handleMineBlock}
         borderRadius={30}
         size={"lg"}
       >

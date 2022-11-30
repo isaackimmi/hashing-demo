@@ -3,9 +3,10 @@ import { useState } from "react";
 import BlockCard from "../components/BlockCard";
 
 const Block = () => {
-  const [value, setValue] = useState("");
-  const [blockInput, setBlockInput] = useState("");
-  const [nonceInput, setNonceInput] = useState("");
+  const [blockchain, setBlockchain] = useState([
+    { id: 1, nonce: 1, message: "hello world", previousHash: 99, hash: 1 },
+  ]);
+  const [success, setSuccess] = useState([true]);
 
   return (
     <Flex
@@ -17,15 +18,15 @@ const Block = () => {
       mb={20}
     >
       <BlockCard
+        isBlock={true}
         title={"Block Demo"}
-        //size={"65%"}
-        hash={value}
-        setHash={setValue}
-        blockID={blockInput}
-        setBlock={setBlockInput}
-        nonce={nonceInput}
-        setNonce={setNonceInput}
-        isBlock={false}
+        success={success}
+        block={blockchain[0]}
+        setBlock={(newBlock, index) => {
+          blockchain.splice(index, 1, newBlock);
+          setBlockchain([...blockchain]);
+        }}
+        id={blockchain[0].id}
       />
     </Flex>
   );

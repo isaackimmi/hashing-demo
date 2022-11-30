@@ -1,25 +1,28 @@
 import cryptoJs from "crypto-js";
 
-export default function mineBlock(block, message) {
-  if (block === "" || message === "") {
+export default function mineBlock(nonce = 0, blockID, message, previousHash) {
+  if (blockID === "" || message === "") {
     return null;
   }
 
-  // Input Box 3
-  //let msg = "genius josh, thank you...";
-
   // stuff used to find block
+  // stuff inside block: id, nonce, data, previousHash, hash
   let found = false;
-  let nonce = 0;
   let hash;
   let leadingChars;
   let difficulty = 2;
+
+  //if (blockchain.length === 1) {
+  //  found = true;
+  //}
+
   if (found) {
     return hash;
   }
+
   while (!found) {
     nonce += 1;
-    hash = cryptoJs.SHA256(nonce + block + message).toString();
+    hash = cryptoJs.SHA256(nonce + blockID + message + previousHash).toString();
     leadingChars = hash.slice(0, difficulty);
     found =
       leadingChars === "00" // make this "000" if difficulty = 3
@@ -27,9 +30,9 @@ export default function mineBlock(block, message) {
         : false;
   }
 
-  console.log("MINED BLOCK!!!");
-  console.log("HASH", hash);
-  console.log("NONCE", nonce);
+  //console.log("MINED BLOCK!!!");
+  //console.log("HASH", hash);
+  //console.log("NONCE", nonce);
 
-  return hash;
+  return { hash, previousHash, nonce };
 }
